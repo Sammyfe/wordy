@@ -1,20 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { mainRouter } = require('./routes/mainRoutes');
+const { postRouter } = require('./routes/postRoutes');
 const { Post } = require('./models/post');
-const { postRouter } =require('./routes/postRoutes');
-const { mainRouter } =require('./routes/mainRoutes');
 
 const app = express();
 
-//setting the app default
+const PORT = process.env.PORT || 5000;
+
+// setting the app defaults
 app.set('view engine', 'ejs');
 
-//setting middlewares if you wrote ur css code yourself
+// setting up middlewares
 app.use(express.static('./public'));
-//to get our data from req.body, we make use of our middleware which is express built
 app.use(express.urlencoded({ extended: true }));
 
-//connecting to the database
+// connecting to the database
 dbURI = 
     'mongodb+srv://Titilope:cholatrek@sammyfe.bgevw.mongodb.net/wordy?retryWrites=true&w=majority';
     mongoose
@@ -25,13 +26,9 @@ dbURI =
         });
     })
     .catch ((error) => console.log(error));
-   
-//everything relating to home, about and 404
+
+// Everything related to created, reading, updating, and deleting, posts
+app.use('/posts', postRouter);
+
+// everything relating to home, about, and 404
 app.use(mainRouter);
-
-  // files related to routes
-app.use(postRouter);
-
-
-
-  

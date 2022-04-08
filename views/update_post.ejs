@@ -1,139 +1,91 @@
-<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Wordy | a mini nodejs blog
-    </title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/pricing/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css"
- rel="stylesheet" 
- integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-  />
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="pricing.css" rel="stylesheet">
-  </head>
+  <%- include('../partials/head') %>
   <body>
-    
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <title>Wordy</title>
-    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-</svg>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol id="check" viewBox="0 0 16 16">
+        <title>Check</title>
+        <path
+          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+        />
+      </symbol>
+    </svg>
 
-<div class="container py-3">
-  <%- include('../partials/header') %>
+    <div class="container py-3">
+      <%- include('../partials/header') %>
 
-  <main class="post">
-      <!-- we want the form to submit to update post, then we send in a put request instead of post on "method" -->
-    <form action="/posts/update_post/<%= post._id %>" method="post">
-      <div class="container">
-        <div class="mb-3">
-          <label for="title" class="form-label">Title </label>
-          <!-- since we want to preview the value as if it is already there, we'll use value in input and it will take ejs-->
-          <input 
-          type="text" 
-          class="form-control" 
-          id="title" 
-          name="title"
-          value="<%= post.title %>"
-          />
+      <main class="post">
+        <div class="container">
+          <form id="form" data-id="<%= post._id %>">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                required="true"
+                id="title"
+                name="title"
+                value="<%= post.title %>"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="snippet" class="form-label">Snippet</label>
+              <input
+                type="text"
+                class="form-control"
+                required="true"
+                id="snippet"
+                name="snippet"
+                value="<%= post.snippet %>"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Content</label>
+              <textarea
+                name="content"
+                class="form-control"
+                required="true"
+                id="content"
+                rows="3"
+              >
+<%= post.content %> </textarea
+              >
+            </div>
+            <button class="btn btn-lg btn-primary" type="submit">Update</button>
+          </form>
         </div>
-        <div class="mb-3">
-          <label for="snippet" class="form-label">snippet</label>
-          <input 
-          type="text" 
-          class="form-control" 
-          id="snippet" 
-          name="snippet"
-          value="<%= post.snippet %>"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">content</label>
-        <textarea 
-        name="content" 
-        class="form-control" 
-        id="content"
-        rows="3">
-        <%= post.snippet %>"</textarea>
-        </div>
-      </div>
-      <!-- to prefill, we'll be needing ejs but well have to create the route for updating -->
-      <button class="btn btn-lg btn-primary" type="submit"> update </button>
-    </form>
-  </main>
-  <%- include('../partials/footer') %>
-  <script>
-    const form = document.querySelector('#form');
-    const postId = form.dataset.id;
+      </main>
 
-    form.onsubmit = async function (event) {
-      event.preventDefault();
+      <%- include('../partials/footer') %>
+    </div>
 
-      //getting the post data
-      const title = document.querySelector('#title').value;
-      const snippet = document.querySelector('#snippet').value;
-      const content = document.querySelector('#content').value;
-
-      const postData = {
-        title: title,
-        snippet: snippet,
-        content: content,
+    <script>
+      const form = document.querySelector('#form');
+      const postId = form.dataset.id;
+      form.onsubmit = async function (event) {
+        event.preventDefault();
+        //getting the post data
+        const title = document.querySelector('#title').value;
+        const snippet = document.querySelector('#snippet').value;
+        const content = document.querySelector('#content').value;
+        const postData = {
+          title: title,
+          snippet: snippet,
+          content: content,
+        };
+        const request = await fetch(`/posts/update_post/${postId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(postData),
+        });
+        const response = await request.json();
+        if (response.status === true) {
+          window.location.href = response.redirect;
+        } else {
+          alert(response.error);
+        }
       };
-      
-      const request = await fetch(`/posts/update_post/${postId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
-      });
-      const response = await request.json();
-
-      if (response.status == true){
-        window.location.href = response.redirect;
-      } else {
-        alert(response.error);
-      }
-    };
-  </script>
-</div>
+    </script>
   </body>
 </html>
