@@ -1,3 +1,16 @@
-# WORDY - A mini blog project
-** WORDY is  a mini blog project that is in JS and built using NodeJS runtime enviroment**
-**Wordy is a mini blog that is built with node js on top of the express framework. Wordy allows anyone like you to publish blogs without having to undergo any validation.**
+WORDY - A Mini Blog Project
+WORDY is a mini blog project that is in JavaScript and built using Express on top of the NodeJS runtime environemt
+
+WORDY is a project that was created during the Cholatrek Cohort 2.1 Training under the NodeJS/Express Stack.
+
+WORDY allows anyone, like you, to publish blogs without having to undergo any validation.
+
+WORDY contains features that implements the HTTP CRUD operations. Which means users can create, read, update, and delete posts.
+
+Installation
+Clone the project into your desired folder using the following command
+
+git clone https://github.com/Sammyfe/wordy.git
+Next, install the required modules using npm as
+
+npm install
