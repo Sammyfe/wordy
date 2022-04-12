@@ -14,7 +14,9 @@ mainRouter.get('/', (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+    
 });
+
 
 // about route
 mainRouter.get('/about', (req, res) => {
