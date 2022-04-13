@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { mainRouter } = require('./routes/mainRoutes');
 const { postRouter } = require('./routes/postRoutes');
 const { Post } = require('./models/post');
-const dotevn = require(dotenv).config();
+const dotevn = require('dotenv').config();
 
 const app = express();
 
