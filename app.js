@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { mainRouter } = require('./routes/mainRoutes');
 const { postRouter } = require('./routes/postRoutes');
 const { Post } = require('./models/post');
+const dotenv = require(dotenv).config();
 
 const app = express();
 
@@ -21,8 +22,8 @@ dbURI =
     mongoose
     .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
-        app.listen(5000, () => {
-            console.log('App is listening on port 5000.....');
+        app.listen(PORT, () => {
+            console.log(`App is listening on port 5000 ${PORT}......`);
         });
     })
     .catch ((error) => console.log(error));
