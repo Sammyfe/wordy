@@ -40,7 +40,7 @@ const registerUser = async (req, res ) => {
         return res.status(201).redirect('/auth/login');
     } catch(error) {
         //sending a failed message
-        req.flash('error','Something went wrong');
+        req.flash('error','There seems to be a problem');
         return res.status(500).redirect('/auth/register');
     };
 };
